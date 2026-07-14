@@ -1,7 +1,7 @@
---A query to ge the list of top 10 companies for posting jobs with each posting more than 3,000 jobs
+--A query to get the list of top 10 companies for posting jobs, with each posting more than 3,000 jobs
 EXPLAIN ANALYZE
 SELECT
-    cd.name AS comapany_name,
+    cd.name AS company_name,
     COUNT(jpf.*) AS job_count
 FROM   
     job_postings_fact AS jpf 
