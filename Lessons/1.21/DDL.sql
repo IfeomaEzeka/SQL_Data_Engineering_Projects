@@ -1,3 +1,5 @@
+--.read "Lessons\1.21\DDL.sql", when ot in the terminal, runs this script.
+
 CREATE DATABASE IF NOT EXISTS job_mart;
 
 SELECT *
