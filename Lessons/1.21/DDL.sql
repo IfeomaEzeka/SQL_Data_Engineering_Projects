@@ -16,8 +16,9 @@ WHERE table_catalog = 'job_mart';
 USE job_mart;
 
 CREATE TABLE IF NOT EXISTS staging.preferred_roles(
-    role_id INT,
+    role_id INT PRIMARY KEY,
     role_name VARCHAR
 );
 
+DROP TABLE IF EXISTS main.preferred_roles ;
 DROP TABLE IF EXISTS main.preferred_roles ;
