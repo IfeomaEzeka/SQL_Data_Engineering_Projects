@@ -1,5 +1,7 @@
---Creation of  a CTAS
-CREATE TABLE staging.job_postings_flat AS 
+--Creation of  a CTA
+--used .read the full path of the script to run it.
+--To make the query idepotent, we will make use of replace 
+CREATE OR REPLACE TABLE staging.job_postings_flat AS 
 SELECT
     jpf.job_id,
     jpf.job_title_short,
@@ -26,7 +28,7 @@ FROM staging.job_postings_flat
 LIMIT 10;
 
 --Create view
-CREATE view staging.priority_jobs_flat_view AS 
+CREATE OR REPLACE VIEW staging.priority_jobs_flat_view AS 
 SELECT 
     jpf.*
 FROM
