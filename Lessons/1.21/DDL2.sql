@@ -48,3 +48,15 @@ SELECT
     COUNT(*) AS job_count
 FROM  staging.priority_jobs_flat_view
 GROUP BY job_title_short;
+
+--create temp table
+CREATE TEMPORARY TABLE hourly_jobs_flat_temp AS
+SELECT *
+FROM staging.priority_jobs_flat_view
+WHERE salary_hour_avg NOT NULL;
+
+SELECT 
+    job_title_short,
+    COUNT(*) AS job_count
+FROM  hourly_jobs_flat_temp
+GROUP BY job_title_short;
