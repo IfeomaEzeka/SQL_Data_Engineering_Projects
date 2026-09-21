@@ -83,3 +83,26 @@ WITH salary_jobs AS (
 )
 SELECT * FROM salary_jobs
 LIMIT 10;
+
+WITH title_median AS(
+    SELECT 
+        job_title_short,
+        job_work_from_home,
+        MEDIAN(salary_year_avg) ::INT AS market_medain_salary
+    FROM job_postings_fact
+    WHERE job_country = 'United States'
+    GROUP BY 
+        job_title_short,
+        job_work_from_home
+)
+SELECT 
+    r.job_title_short,
+    r.market_medain_salary AS remote_median,
+    o.market_medain_salary AS onsite_median,
+    (r.market_medain_salary - o.market_medain_salary ) AS remote_premium
+FROM title_median AS r
+INNER JOIN title_median AS o
+ON r.job_title_short = o.job_title_short
+WHERE r.job_work_from_home = TRUE
+AND o.job_work_from_home = FALSE
+ORDER BY remote_premium DESC;
