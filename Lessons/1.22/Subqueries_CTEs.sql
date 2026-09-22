@@ -130,3 +130,53 @@ WHERE NOT EXISTS(
     FROM range(5) AS tgt(key)
     WHERE tgt.key = src.key
 );
+
+--Finding jobs that have no associated skill 
+SELECT *
+FROM skills_job_dim
+LIMIT 10;
+
+SELECT *
+FROM skills_dim
+LIMIT 10;
+
+SELECT *
+FROM job_postings_fact AS jpf 
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM skills_job_dim AS sjd 
+    WHERE jpf.job_id = sjd.job_id
+)
+
+
+SELECT 
+    jpf.job_title_short
+FROM job_postings_fact AS jpf 
+WHERE EXISTS (
+    SELECT 1
+    FROM skills_job_dim AS sjd 
+    WHERE jpf.job_id = sjd.job_id
+)
+LIMIT 10;
+
+SELECT 
+    COUNT(*)
+FROM job_postings_fact AS jpf 
+WHERE EXISTS (
+    SELECT 1
+    FROM skills_job_dim AS sjd 
+    WHERE jpf.job_id = sjd.job_id
+);
+
+SELECT 
+    COUNT(*)
+FROM job_postings_fact AS jpf ;
+
+SELECT 
+    COUNT(*)
+FROM job_postings_fact AS jpf 
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM skills_job_dim AS sjd 
+    WHERE jpf.job_id = sjd.job_id
+);
