@@ -126,7 +126,7 @@ WHERE EXISTS(
 SELECT *
 FROM range(10) AS src(key)
 WHERE NOT EXISTS(
-    SELECT 1 --you cna use anything, it still works. 1 is jsut the 
+    SELECT 1 --you can use anything, it still works. 1 is jsut the 
     FROM range(5) AS tgt(key)
     WHERE tgt.key = src.key
 );
