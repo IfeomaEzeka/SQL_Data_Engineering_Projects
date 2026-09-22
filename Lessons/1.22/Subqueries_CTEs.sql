@@ -106,3 +106,27 @@ ON r.job_title_short = o.job_title_short
 WHERE r.job_work_from_home = TRUE
 AND o.job_work_from_home = FALSE
 ORDER BY remote_premium DESC;
+
+
+--Existence filtering
+SELECT *
+FROM range(10) AS src(key);
+
+SELECT *
+FROM range(5) AS tgt(key);
+
+SELECT *
+FROM range(10) AS src(key)
+WHERE EXISTS(
+    SELECT 1
+    FROM range(5) AS tgt(key)
+    WHERE tgt.key = src.key
+);
+
+SELECT *
+FROM range(10) AS src(key)
+WHERE NOT EXISTS(
+    SELECT 1 --you cna use anything, it still works. 1 is jsut the 
+    FROM range(5) AS tgt(key)
+    WHERE tgt.key = src.key
+);
